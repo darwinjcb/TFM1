@@ -1,3 +1,4 @@
+// src/chats/chats.module.ts:
 import { Module } from '@nestjs/common';
 import { ChatsController } from './chats.controller';
 import { ChatsService } from './chats.service';
@@ -6,4 +7,4 @@ import { ChatsService } from './chats.service';
   controllers: [ChatsController],
   providers: [ChatsService]
 })
-export class ChatsModule {}
+export class ChatsModule { }

@@ -1,3 +1,4 @@
+// src/musica/musica.module.ts:
 import { Module } from '@nestjs/common';
 import { MusicaController } from './musica.controller';
 import { MusicaService } from './musica.service';
@@ -6,4 +7,4 @@ import { MusicaService } from './musica.service';
   controllers: [MusicaController],
   providers: [MusicaService]
 })
-export class MusicaModule {}
+export class MusicaModule { }
