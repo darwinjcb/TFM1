@@ -7,3 +7,174 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum Genero {
+  MASCULINO
+  FEMENINO
+}
+
+enum TipoSuscripcion {
+  BRONCE
+  GOLD
+  PREMIUM
+  PLATINO
+}
+
+enum TipoInteraccion {
+  LIKE
+  NOLIKE
+  SUPERLIKE
+}
+
+enum MotivoReporte {
+  SPAM
+  CONTENIDO_INAPROPIADO
+  ACOSO
+  PERFIL_FALSO
+  OTRO
+}
+
+model Usuario {
+  idUsuario          Int                 @id @default(autoincrement())
+  nombre             String
+  edad               Int
+  biografia          String?
+  peso               Float?
+  altura             Float?
+  nacionalidad       String?
+  genero             Genero
+  ciudad             String?
+  pais               String?
+  numero             String?
+  correo             String              @unique
+  signoZodiacal      String?
+  queBusca           String?
+  ubicacion          String?
+  hobbie             String?
+  profesion          String?
+  fotos              String[]
+  estaActivo         Boolean             @default(true)
+  fechaCreacion      DateTime            @default(now())
+  fechaActualizacion DateTime            @updatedAt
+  suscripcion        SuscripcionUsuario?
+  musicaUsuario      MusicaUsuario[]
+  likesDados         Interaccion[]       @relation("LikesDados")
+  likesRecibidos     Interaccion[]       @relation("LikesRecibidos")
+  matchesUsuario1    Match[]             @relation("MatchUsuario1")
+  matchesUsuario2    Match[]             @relation("MatchUsuario2")
+  mensajesEnviados   Mensaje[]           @relation("MensajesEnviados")
+  bloqueosHechos     Bloqueo[]           @relation("Bloqueador")
+  bloqueosRecibidos  Bloqueo[]           @relation("Bloqueado")
+  reportesHechos     Reporte[]           @relation("Reportador")
+  reportesRecibidos  Reporte[]           @relation("Reportado")
+}
+
+model PlanSuscripcion {
+  idPlanSuscripcion Int                  @id @default(autoincrement())
+  tipo              TipoSuscripcion      @unique
+  valor             Decimal              @db.Decimal(10, 2)
+  beneficios        String[]
+  restricciones     String[]
+  fechaCreacion     DateTime             @default(now())
+  usuariosSuscritos SuscripcionUsuario[]
+}
+
+model SuscripcionUsuario {
+  idSuscripcionUsuario Int       @id @default(autoincrement())
+  idUsuario            Int       @unique
+  idPlanSuscripcion    Int
+  fechaInicio          DateTime  @default(now())
+  fechaFin             DateTime?
+  activa               Boolean   @default(true)
+
+  usuario         Usuario         @relation(fields: [idUsuario], references: [idUsuario])
+  planSuscripcion PlanSuscripcion @relation(fields: [idPlanSuscripcion], references: [idPlanSuscripcion])
+}
+
+model Musica {
+  idMusica       Int             @id @default(autoincrement())
+  titulo         String
+  artista        String
+  fechaCreacion  DateTime        @default(now())
+  usuariosMusica MusicaUsuario[]
+}
+
+model MusicaUsuario {
+  idMusicaUsuario Int     @id @default(autoincrement())
+  idUsuario       Int
+  idMusica        Int
+  usuario         Usuario @relation(fields: [idUsuario], references: [idUsuario])
+  musica          Musica  @relation(fields: [idMusica], references: [idMusica])
+
+  @@unique([idUsuario, idMusica])
+}
+
+model Interaccion {
+  idInteraccion     Int             @id @default(autoincrement())
+  idUsuarioEmisor   Int
+  idUsuarioReceptor Int
+  tipo              TipoInteraccion
+  fechaCreacion     DateTime        @default(now())
+
+  usuarioEmisor   Usuario @relation("LikesDados", fields: [idUsuarioEmisor], references: [idUsuario])
+  usuarioReceptor Usuario @relation("LikesRecibidos", fields: [idUsuarioReceptor], references: [idUsuario])
+
+  @@unique([idUsuarioEmisor, idUsuarioReceptor])
+}
+
+model Match {
+  idMatch       Int      @id @default(autoincrement())
+  idUsuario1    Int
+  idUsuario2    Int
+  fechaCreacion DateTime @default(now())
+
+  usuario1 Usuario @relation("MatchUsuario1", fields: [idUsuario1], references: [idUsuario])
+  usuario2 Usuario @relation("MatchUsuario2", fields: [idUsuario2], references: [idUsuario])
+  chat     Chat?
+
+  @@unique([idUsuario1, idUsuario2])
+}
+
+model Chat {
+  idChat        Int      @id @default(autoincrement())
+  idMatch       Int      @unique
+  fechaCreacion DateTime @default(now())
+
+  match    Match     @relation(fields: [idMatch], references: [idMatch])
+  mensajes Mensaje[]
+}
+
+model Mensaje {
+  idMensaje       Int      @id @default(autoincrement())
+  idChat          Int
+  idUsuarioEmisor Int
+  contenido       String
+  fechaCreacion   DateTime @default(now())
+
+  chat          Chat    @relation(fields: [idChat], references: [idChat])
+  usuarioEmisor Usuario @relation("MensajesEnviados", fields: [idUsuarioEmisor], references: [idUsuario])
+}
+
+model Bloqueo {
+  idBloqueo           Int      @id @default(autoincrement())
+  idUsuarioBloqueador Int
+  idUsuarioBloqueado  Int
+  fechaCreacion       DateTime @default(now())
+
+  usuarioBloqueador Usuario @relation("Bloqueador", fields: [idUsuarioBloqueador], references: [idUsuario])
+  usuarioBloqueado  Usuario @relation("Bloqueado", fields: [idUsuarioBloqueado], references: [idUsuario])
+
+  @@unique([idUsuarioBloqueador, idUsuarioBloqueado])
+}
+
+model Reporte {
+  idReporte           Int           @id @default(autoincrement())
+  idUsuarioReportador Int
+  idUsuarioReportado  Int
+  motivo              MotivoReporte
+  descripcion         String?
+  fechaCreacion       DateTime      @default(now())
+
+  usuarioReportador Usuario @relation("Reportador", fields: [idUsuarioReportador], references: [idUsuario])
+  usuarioReportado  Usuario @relation("Reportado", fields: [idUsuarioReportado], references: [idUsuario])
+}
