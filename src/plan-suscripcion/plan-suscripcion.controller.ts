@@ -18,18 +18,21 @@ export class PlanSuscripcionController {
     return this.planSuscripcionService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.planSuscripcionService.findOne(+id);
+  @Get(':idPlanSuscripcion')
+  findOne(@Param('idPlanSuscripcion') idPlanSuscripcion: string) {
+    return this.planSuscripcionService.findOne(+idPlanSuscripcion);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePlanSuscripcionDto: UpdatePlanSuscripcionDto) {
-    return this.planSuscripcionService.update(+id, updatePlanSuscripcionDto);
+  @Patch(':idPlanSuscripcion')
+  update(
+    @Param('idPlanSuscripcion') idPlanSuscripcion: string,
+    @Body() updatePlanSuscripcionDto: UpdatePlanSuscripcionDto,
+  ) {
+    return this.planSuscripcionService.update(+idPlanSuscripcion, updatePlanSuscripcionDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.planSuscripcionService.remove(+id);
+  @Delete(':idPlanSuscripcion')
+  remove(@Param('idPlanSuscripcion') idPlanSuscripcion: string) {
+    return this.planSuscripcionService.remove(+idPlanSuscripcion);
   }
 }

@@ -1,2 +1,9 @@
 // src/plan-suscripcion/dto/create-plan-suscripcion.dto.ts:
-export class CreatePlanSuscripcionDto { }
+import { TipoSuscripcion } from '../../../generated/prisma/client';
+
+export class CreatePlanSuscripcionDto {
+    tipo: TipoSuscripcion;
+    valor: number;
+    beneficios: string[];
+    restricciones: string[];
+}
