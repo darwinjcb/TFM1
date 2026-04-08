@@ -18,18 +18,21 @@ export class MatchController {
     return this.matchService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.matchService.findOne(+id);
+  @Get(':idMatch')
+  findOne(@Param('idMatch') idMatch: string) {
+    return this.matchService.findOne(+idMatch);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMatchDto: UpdateMatchDto) {
-    return this.matchService.update(+id, updateMatchDto);
+  @Patch(':idMatch')
+  update(
+    @Param('idMatch') idMatch: string,
+    @Body() updateMatchDto: UpdateMatchDto,
+  ) {
+    return this.matchService.update(+idMatch, updateMatchDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.matchService.remove(+id);
+  @Delete(':idMatch')
+  remove(@Param('idMatch') idMatch: string) {
+    return this.matchService.remove(+idMatch);
   }
 }
