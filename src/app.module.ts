@@ -8,9 +8,10 @@ import { InteraccionModule } from './interaccion/interaccion.module';
 import { MatchModule } from './match/match.module';
 import { ChatModule } from './chat/chat.module';
 import { MensajeModule } from './mensaje/mensaje.module';
+import { PlanSuscripcionModule } from './plan-suscripcion/plan-suscripcion.module';
 
 @Module({
-  imports: [PrismaModule, UsuarioModule, InteraccionModule, MatchModule, ChatModule, MensajeModule],
+  imports: [PrismaModule, UsuarioModule, InteraccionModule, MatchModule, ChatModule, MensajeModule, PlanSuscripcionModule],
   controllers: [AppController],
   providers: [AppService],
 })
