@@ -18,18 +18,21 @@ export class MusicaController {
     return this.musicaService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.musicaService.findOne(+id);
+  @Get(':idMusica')
+  findOne(@Param('idMusica') idMusica: string) {
+    return this.musicaService.findOne(+idMusica);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMusicaDto: UpdateMusicaDto) {
-    return this.musicaService.update(+id, updateMusicaDto);
+  @Patch(':idMusica')
+  update(
+    @Param('idMusica') idMusica: string,
+    @Body() updateMusicaDto: UpdateMusicaDto,
+  ) {
+    return this.musicaService.update(+idMusica, updateMusicaDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.musicaService.remove(+id);
+  @Delete(':idMusica')
+  remove(@Param('idMusica') idMusica: string) {
+    return this.musicaService.remove(+idMusica);
   }
 }

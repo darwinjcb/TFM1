@@ -1,27 +1,53 @@
 // src/musica/musica.service.ts:
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateMusicaDto } from './dto/create-musica.dto';
 import { UpdateMusicaDto } from './dto/update-musica.dto';
 
 @Injectable()
 export class MusicaService {
+  constructor(private readonly prisma: PrismaService) { }
+
   create(createMusicaDto: CreateMusicaDto) {
-    return 'This action adds a new musica';
+    return this.prisma.musica.create({
+      data: {
+        ...createMusicaDto,
+      },
+    });
   }
 
   findAll() {
-    return `This action returns all musica`;
+    return this.prisma.musica.findMany({
+      orderBy: {
+        idMusica: 'asc',
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} musica`;
+  findOne(idMusica: number) {
+    return this.prisma.musica.findUnique({
+      where: {
+        idMusica,
+      },
+    });
   }
 
-  update(id: number, updateMusicaDto: UpdateMusicaDto) {
-    return `This action updates a #${id} musica`;
+  update(idMusica: number, updateMusicaDto: UpdateMusicaDto) {
+    return this.prisma.musica.update({
+      where: {
+        idMusica,
+      },
+      data: {
+        ...updateMusicaDto,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} musica`;
+  remove(idMusica: number) {
+    return this.prisma.musica.delete({
+      where: {
+        idMusica,
+      },
+    });
   }
 }
