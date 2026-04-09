@@ -18,18 +18,21 @@ export class BloqueoController {
     return this.bloqueoService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.bloqueoService.findOne(+id);
+  @Get(':idBloqueo')
+  findOne(@Param('idBloqueo') idBloqueo: string) {
+    return this.bloqueoService.findOne(+idBloqueo);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBloqueoDto: UpdateBloqueoDto) {
-    return this.bloqueoService.update(+id, updateBloqueoDto);
+  @Patch(':idBloqueo')
+  update(
+    @Param('idBloqueo') idBloqueo: string,
+    @Body() updateBloqueoDto: UpdateBloqueoDto,
+  ) {
+    return this.bloqueoService.update(+idBloqueo, updateBloqueoDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.bloqueoService.remove(+id);
+  @Delete(':idBloqueo')
+  remove(@Param('idBloqueo') idBloqueo: string) {
+    return this.bloqueoService.remove(+idBloqueo);
   }
 }

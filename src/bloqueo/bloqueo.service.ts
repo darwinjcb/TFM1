@@ -1,27 +1,53 @@
 // src/bloqueo/bloqueo.service.ts:
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateBloqueoDto } from './dto/create-bloqueo.dto';
 import { UpdateBloqueoDto } from './dto/update-bloqueo.dto';
 
 @Injectable()
 export class BloqueoService {
+  constructor(private readonly prisma: PrismaService) { }
+
   create(createBloqueoDto: CreateBloqueoDto) {
-    return 'This action adds a new bloqueo';
+    return this.prisma.bloqueo.create({
+      data: {
+        ...createBloqueoDto,
+      },
+    });
   }
 
   findAll() {
-    return `This action returns all bloqueo`;
+    return this.prisma.bloqueo.findMany({
+      orderBy: {
+        idBloqueo: 'asc',
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} bloqueo`;
+  findOne(idBloqueo: number) {
+    return this.prisma.bloqueo.findUnique({
+      where: {
+        idBloqueo,
+      },
+    });
   }
 
-  update(id: number, updateBloqueoDto: UpdateBloqueoDto) {
-    return `This action updates a #${id} bloqueo`;
+  update(idBloqueo: number, updateBloqueoDto: UpdateBloqueoDto) {
+    return this.prisma.bloqueo.update({
+      where: {
+        idBloqueo,
+      },
+      data: {
+        ...updateBloqueoDto,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} bloqueo`;
+  remove(idBloqueo: number) {
+    return this.prisma.bloqueo.delete({
+      where: {
+        idBloqueo,
+      },
+    });
   }
 }
