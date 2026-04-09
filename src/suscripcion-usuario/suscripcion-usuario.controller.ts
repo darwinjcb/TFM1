@@ -6,7 +6,9 @@ import { UpdateSuscripcionUsuarioDto } from './dto/update-suscripcion-usuario.dt
 
 @Controller('suscripcion-usuario')
 export class SuscripcionUsuarioController {
-  constructor(private readonly suscripcionUsuarioService: SuscripcionUsuarioService) { }
+  constructor(
+    private readonly suscripcionUsuarioService: SuscripcionUsuarioService,
+  ) { }
 
   @Post()
   create(@Body() createSuscripcionUsuarioDto: CreateSuscripcionUsuarioDto) {
@@ -18,18 +20,24 @@ export class SuscripcionUsuarioController {
     return this.suscripcionUsuarioService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.suscripcionUsuarioService.findOne(+id);
+  @Get(':idSuscripcionUsuario')
+  findOne(@Param('idSuscripcionUsuario') idSuscripcionUsuario: string) {
+    return this.suscripcionUsuarioService.findOne(+idSuscripcionUsuario);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSuscripcionUsuarioDto: UpdateSuscripcionUsuarioDto) {
-    return this.suscripcionUsuarioService.update(+id, updateSuscripcionUsuarioDto);
+  @Patch(':idSuscripcionUsuario')
+  update(
+    @Param('idSuscripcionUsuario') idSuscripcionUsuario: string,
+    @Body() updateSuscripcionUsuarioDto: UpdateSuscripcionUsuarioDto,
+  ) {
+    return this.suscripcionUsuarioService.update(
+      +idSuscripcionUsuario,
+      updateSuscripcionUsuarioDto,
+    );
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.suscripcionUsuarioService.remove(+id);
+  @Delete(':idSuscripcionUsuario')
+  remove(@Param('idSuscripcionUsuario') idSuscripcionUsuario: string) {
+    return this.suscripcionUsuarioService.remove(+idSuscripcionUsuario);
   }
 }
