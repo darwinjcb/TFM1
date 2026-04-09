@@ -1,27 +1,53 @@
 // src/musica-usuario/musica-usuario.service.ts:
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateMusicaUsuarioDto } from './dto/create-musica-usuario.dto';
 import { UpdateMusicaUsuarioDto } from './dto/update-musica-usuario.dto';
 
 @Injectable()
 export class MusicaUsuarioService {
+  constructor(private readonly prisma: PrismaService) { }
+
   create(createMusicaUsuarioDto: CreateMusicaUsuarioDto) {
-    return 'This action adds a new musicaUsuario';
+    return this.prisma.musicaUsuario.create({
+      data: {
+        ...createMusicaUsuarioDto,
+      },
+    });
   }
 
   findAll() {
-    return `This action returns all musicaUsuario`;
+    return this.prisma.musicaUsuario.findMany({
+      orderBy: {
+        idMusicaUsuario: 'asc',
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} musicaUsuario`;
+  findOne(idMusicaUsuario: number) {
+    return this.prisma.musicaUsuario.findUnique({
+      where: {
+        idMusicaUsuario,
+      },
+    });
   }
 
-  update(id: number, updateMusicaUsuarioDto: UpdateMusicaUsuarioDto) {
-    return `This action updates a #${id} musicaUsuario`;
+  update(idMusicaUsuario: number, updateMusicaUsuarioDto: UpdateMusicaUsuarioDto) {
+    return this.prisma.musicaUsuario.update({
+      where: {
+        idMusicaUsuario,
+      },
+      data: {
+        ...updateMusicaUsuarioDto,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} musicaUsuario`;
+  remove(idMusicaUsuario: number) {
+    return this.prisma.musicaUsuario.delete({
+      where: {
+        idMusicaUsuario,
+      },
+    });
   }
 }
