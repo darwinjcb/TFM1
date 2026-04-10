@@ -13,9 +13,10 @@ import { SuscripcionUsuarioModule } from './suscripcion-usuario/suscripcion-usua
 import { MusicaModule } from './musica/musica.module';
 import { MusicaUsuarioModule } from './musica-usuario/musica-usuario.module';
 import { BloqueoModule } from './bloqueo/bloqueo.module';
+import { ReporteModule } from './reporte/reporte.module';
 
 @Module({
-  imports: [PrismaModule, UsuarioModule, InteraccionModule, MatchModule, ChatModule, MensajeModule, PlanSuscripcionModule, SuscripcionUsuarioModule, MusicaModule, MusicaUsuarioModule, BloqueoModule],
+  imports: [PrismaModule, UsuarioModule, InteraccionModule, MatchModule, ChatModule, MensajeModule, PlanSuscripcionModule, SuscripcionUsuarioModule, MusicaModule, MusicaUsuarioModule, BloqueoModule, ReporteModule],
   controllers: [AppController],
   providers: [AppService],
 })
