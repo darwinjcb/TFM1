@@ -1,2 +1,9 @@
 // src/reporte/dto/create-reporte.dto.ts:
-export class CreateReporteDto { }
+import { MotivoReporte } from '../../../generated/prisma/client';
+
+export class CreateReporteDto {
+    idUsuarioReportador: number;
+    idUsuarioReportado: number;
+    motivo: MotivoReporte;
+    descripcion?: string;
+}
