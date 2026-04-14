@@ -1,8 +1,8 @@
 // src/usuario/infraestructura/usuario.controller.ts:
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
-import { CreateUsuarioDto } from './dto/create-usuario.dto';
-import { UpdateUsuarioDto } from './dto/update-usuario.dto';
+import { CreateUsuarioDto } from './create-usuario.dto';
+import { UpdateUsuarioDto } from './update-usuario.dto';
 
 @Controller('usuario')
 export class UsuarioController {
@@ -20,16 +20,16 @@ export class UsuarioController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.usuarioService.findOne(+id);
+    return this.usuarioService.findOne(Number(id));
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUsuarioDto: UpdateUsuarioDto) {
-    return this.usuarioService.update(+id, updateUsuarioDto);
+    return this.usuarioService.update(Number(id), updateUsuarioDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.usuarioService.remove(+id);
+    return this.usuarioService.remove(Number(id));
   }
 }
