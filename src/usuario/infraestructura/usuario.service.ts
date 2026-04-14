@@ -6,22 +6,37 @@ import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 @Injectable()
 export class UsuarioService {
   create(createUsuarioDto: CreateUsuarioDto) {
-    return 'This action adds a new usuario';
+    return {
+      mensaje: 'Pendiente de implementar creación de usuario en base de datos',
+      datos: createUsuarioDto,
+    };
   }
 
   findAll() {
-    return `This action returns all usuario`;
+    return {
+      mensaje: 'Pendiente de implementar listado de usuarios en base de datos',
+    };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} usuario`;
+  findOne(idUsuario: number) {
+    return {
+      mensaje: 'Pendiente de implementar búsqueda de usuario por id',
+      idUsuario,
+    };
   }
 
-  update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
-    return `This action updates a #${id} usuario`;
+  update(idUsuario: number, updateUsuarioDto: UpdateUsuarioDto) {
+    return {
+      mensaje: 'Pendiente de implementar actualización de usuario en base de datos',
+      idUsuario,
+      datos: updateUsuarioDto,
+    };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} usuario`;
+  remove(idUsuario: number) {
+    return {
+      mensaje: 'Pendiente de implementar eliminación de usuario en base de datos',
+      idUsuario,
+    };
   }
 }
