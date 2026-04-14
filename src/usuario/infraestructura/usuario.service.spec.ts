@@ -1,4 +1,4 @@
-// src/infraestructura/usuario/usuario.service.spec.ts:
+// src/usuario/infraestructura/usuario.service.spec.ts:
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsuarioService } from './usuario.service';
 

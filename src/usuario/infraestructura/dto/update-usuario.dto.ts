@@ -1,4 +1,4 @@
-// src/infraestructura/usuario/dto/update-usuario.dto.ts:
+// src/usuario/infraestructura/dto/update-usuario.dto.ts:
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateUsuarioDto } from './create-usuario.dto';
 
