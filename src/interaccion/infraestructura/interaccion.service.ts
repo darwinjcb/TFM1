@@ -1,27 +1,138 @@
 // src/interaccion/infraestructura/interaccion.service.ts:
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, } from '@nestjs/common';
+import { PrismaService } from '../../prisma/prisma.service';
 import { CreateInteraccionDto } from './create-interaccion.dto';
 import { UpdateInteraccionDto } from './update-interaccion.dto';
 
 @Injectable()
 export class InteraccionService {
-  create(createInteraccionDto: CreateInteraccionDto) {
-    return 'This action adds a new interaccion';
+  constructor(private readonly prisma: PrismaService) { }
+
+  async create(createInteraccionDto: CreateInteraccionDto) {
+    if (
+      createInteraccionDto.idUsuarioEmisor ===
+      createInteraccionDto.idUsuarioReceptor
+    ) {
+      throw new BadRequestException(
+        'Un usuario no puede interactuar consigo mismo',
+      );
+    }
+
+    const usuarioEmisor = await this.prisma.usuario.findUnique({
+      where: { idUsuario: createInteraccionDto.idUsuarioEmisor },
+    });
+
+    if (!usuarioEmisor) {
+      throw new NotFoundException(
+        `No existe un usuario emisor con id ${createInteraccionDto.idUsuarioEmisor}`,
+      );
+    }
+
+    const usuarioReceptor = await this.prisma.usuario.findUnique({
+      where: { idUsuario: createInteraccionDto.idUsuarioReceptor },
+    });
+
+    if (!usuarioReceptor) {
+      throw new NotFoundException(
+        `No existe un usuario receptor con id ${createInteraccionDto.idUsuarioReceptor}`,
+      );
+    }
+
+    const interaccionExistente = await this.prisma.interaccion.findFirst({
+      where: {
+        idUsuarioEmisor: createInteraccionDto.idUsuarioEmisor,
+        idUsuarioReceptor: createInteraccionDto.idUsuarioReceptor,
+      },
+    });
+
+    if (interaccionExistente) {
+      throw new BadRequestException(
+        'Ya existe una interacción entre estos usuarios',
+      );
+    }
+
+    return this.prisma.interaccion.create({
+      data: {
+        idUsuarioEmisor: createInteraccionDto.idUsuarioEmisor,
+        idUsuarioReceptor: createInteraccionDto.idUsuarioReceptor,
+        tipoInteraccion: createInteraccionDto.tipoInteraccion as any,
+      },
+      include: {
+        usuarioEmisor: true,
+        usuarioReceptor: true,
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all interaccion`;
+  async findAll() {
+    return this.prisma.interaccion.findMany({
+      include: {
+        usuarioEmisor: true,
+        usuarioReceptor: true,
+      },
+      orderBy: {
+        idInteraccion: 'asc',
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} interaccion`;
+  async findOne(idInteraccion: number) {
+    const interaccion = await this.prisma.interaccion.findUnique({
+      where: { idInteraccion },
+      include: {
+        usuarioEmisor: true,
+        usuarioReceptor: true,
+      },
+    });
+
+    if (!interaccion) {
+      throw new NotFoundException(
+        `No existe una interacción con id ${idInteraccion}`,
+      );
+    }
+
+    return interaccion;
   }
 
-  update(id: number, updateInteraccionDto: UpdateInteraccionDto) {
-    return `This action updates a #${id} interaccion`;
+  async update(
+    idInteraccion: number,
+    updateInteraccionDto: UpdateInteraccionDto,
+  ) {
+    const interaccionExistente = await this.prisma.interaccion.findUnique({
+      where: { idInteraccion },
+    });
+
+    if (!interaccionExistente) {
+      throw new NotFoundException(
+        `No existe una interacción con id ${idInteraccion}`,
+      );
+    }
+
+    return this.prisma.interaccion.update({
+      where: { idInteraccion },
+      data: {
+        tipoInteraccion: updateInteraccionDto.tipoInteraccion as any,
+      },
+      include: {
+        usuarioEmisor: true,
+        usuarioReceptor: true,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} interaccion`;
+  async remove(idInteraccion: number) {
+    const interaccionExistente = await this.prisma.interaccion.findUnique({
+      where: { idInteraccion },
+    });
+
+    if (!interaccionExistente) {
+      throw new NotFoundException(
+        `No existe una interacción con id ${idInteraccion}`,
+      );
+    }
+
+    return this.prisma.interaccion.delete({
+      where: { idInteraccion },
+    });
   }
 }

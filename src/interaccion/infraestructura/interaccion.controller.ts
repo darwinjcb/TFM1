@@ -1,8 +1,8 @@
 // src/interaccion/infraestructura/interaccion.controller.ts:
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { InteraccionService } from './interaccion.service';
-import { CreateInteraccionDto } from './create-interaccion.dto';
-import { UpdateInteraccionDto } from './update-interaccion.dto';
+import { CreateInteraccionDto } from './/create-interaccion.dto';
+import { UpdateInteraccionDto } from './/update-interaccion.dto';
 
 @Controller('interaccion')
 export class InteraccionController {
@@ -20,16 +20,16 @@ export class InteraccionController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.interaccionService.findOne(+id);
+    return this.interaccionService.findOne(Number(id));
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateInteraccionDto: UpdateInteraccionDto) {
-    return this.interaccionService.update(+id, updateInteraccionDto);
+    return this.interaccionService.update(Number(id), updateInteraccionDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.interaccionService.remove(+id);
+    return this.interaccionService.remove(Number(id));
   }
 }
