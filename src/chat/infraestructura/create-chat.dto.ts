@@ -1,2 +1,5 @@
 // src/chat/infraestructura/create-chat.dto.ts:
-export class CreateChatDto { }
+export class CreateChatDto {
+    idUsuarioUno: number;
+    idUsuarioDos: number;
+}

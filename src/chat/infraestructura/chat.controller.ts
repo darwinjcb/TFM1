@@ -1,35 +1,35 @@
 // src/chat/infraestructura/chat.controller.ts:
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ChatService } from './chat.service';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { ChatApplication } from '../aplicacion/chat.application';
 import { CreateChatDto } from './create-chat.dto';
 import { UpdateChatDto } from './update-chat.dto';
 
 @Controller('chat')
 export class ChatController {
-  constructor(private readonly chatService: ChatService) { }
+  constructor(private readonly chatApplication: ChatApplication) { }
 
   @Post()
   create(@Body() createChatDto: CreateChatDto) {
-    return this.chatService.create(createChatDto);
+    return this.chatApplication.create(createChatDto);
   }
 
   @Get()
   findAll() {
-    return this.chatService.findAll();
+    return this.chatApplication.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.chatService.findOne(+id);
+    return this.chatApplication.findOne(Number(id));
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateChatDto: UpdateChatDto) {
-    return this.chatService.update(+id, updateChatDto);
+    return this.chatApplication.update(Number(id), updateChatDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.chatService.remove(+id);
+    return this.chatApplication.remove(Number(id));
   }
 }
