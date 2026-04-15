@@ -1,8 +1,8 @@
 // src/mensaje/infraestructura/mensaje/mensaje.controller.ts:
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { MensajeService } from './mensaje.service';
-import { CreateMensajeDto } from './dto/create-mensaje.dto';
-import { UpdateMensajeDto } from './dto/update-mensaje.dto';
+import { CreateMensajeDto } from './create-mensaje.dto';
+import { UpdateMensajeDto } from './update-mensaje.dto';
 
 @Controller('mensaje')
 export class MensajeController {

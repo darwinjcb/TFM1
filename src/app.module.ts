@@ -8,7 +8,7 @@ import { SuscripcionModule } from './suscripcion/infraestructura/suscripcion.mod
 import { InteraccionModule } from './interaccion/infraestructura/interaccion.module';
 import { MatchModule } from './match/infraestructura/match.module';
 import { ChatModule } from './chat/infraestructura/chat.module';
-import { MensajeModule } from './mensaje/infraestructura/mensaje/mensaje.module';
+import { MensajeModule } from './mensaje/infraestructura/mensaje.module';
 
 @Module({
   imports: [UsuarioModule, PrismaModule, SuscripcionModule, InteraccionModule, MatchModule, ChatModule, MensajeModule],
