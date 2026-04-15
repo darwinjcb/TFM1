@@ -1,35 +1,35 @@
-// src/mensaje/infraestructura/mensaje/mensaje.controller.ts:
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { MensajeService } from './mensaje.service';
+// src/mensaje/infraestructura/mensaje.controller.ts:
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { MensajeApplication } from '../aplicacion/mensaje.application';
 import { CreateMensajeDto } from './create-mensaje.dto';
 import { UpdateMensajeDto } from './update-mensaje.dto';
 
 @Controller('mensaje')
 export class MensajeController {
-  constructor(private readonly mensajeService: MensajeService) { }
+  constructor(private readonly mensajeApplication: MensajeApplication) { }
 
   @Post()
   create(@Body() createMensajeDto: CreateMensajeDto) {
-    return this.mensajeService.create(createMensajeDto);
+    return this.mensajeApplication.create(createMensajeDto);
   }
 
   @Get()
   findAll() {
-    return this.mensajeService.findAll();
+    return this.mensajeApplication.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.mensajeService.findOne(+id);
+    return this.mensajeApplication.findOne(Number(id));
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMensajeDto: UpdateMensajeDto) {
-    return this.mensajeService.update(+id, updateMensajeDto);
+    return this.mensajeApplication.update(Number(id), updateMensajeDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.mensajeService.remove(+id);
+    return this.mensajeApplication.remove(Number(id));
   }
 }

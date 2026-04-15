@@ -1,2 +1,6 @@
-// src/mensaje/infraestructura/mensaje/dto/create-mensaje.dto.ts:
-export class CreateMensajeDto { }
+// src/mensaje/infraestructura/create-mensaje.dto.ts:
+export class CreateMensajeDto {
+    idChat: number;
+    idRemitente: number;
+    contenido: string;
+}

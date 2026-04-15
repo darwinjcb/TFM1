@@ -1,5 +1,5 @@
 // src/mensaje/infraestructura/mensaje/dto/update-mensaje.dto.ts:
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateMensajeDto } from './create-mensaje.dto';
-
-export class UpdateMensajeDto extends PartialType(CreateMensajeDto) { }
+export class UpdateMensajeDto {
+    contenido?: string;
+    leido?: boolean;
+}
