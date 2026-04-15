@@ -1,52 +1,57 @@
 // src/match/infraestructura/match.service.ts:
 import { BadRequestException, Injectable, NotFoundException, } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
-import { CreateMatchDto } from './create-match.dto';
-import { UpdateMatchDto } from './update-match.dto';
+import { ActualizarMatch, CrearMatch, Match } from '../dominio/match';
+import { MatchRepository } from '../dominio/match.repository';
 
 @Injectable()
-export class MatchService {
-  constructor(private readonly prisma: PrismaService) { }
+export class MatchService extends MatchRepository {
+  constructor(private readonly prisma: PrismaService) {
+    super();
+  }
 
-  async create(createMatchDto: CreateMatchDto) {
-    if (createMatchDto.idUsuarioUno === createMatchDto.idUsuarioDos) {
+  async create(data: CrearMatch): Promise<Match> {
+    if (data.idUsuarioUno === data.idUsuarioDos) {
       throw new BadRequestException(
         'Un usuario no puede hacer match consigo mismo',
       );
     }
 
     const usuarioUno = await this.prisma.usuario.findUnique({
-      where: { idUsuario: createMatchDto.idUsuarioUno },
+      where: { idUsuario: data.idUsuarioUno },
     });
 
     if (!usuarioUno) {
       throw new NotFoundException(
-        `No existe un usuario con id ${createMatchDto.idUsuarioUno}`,
+        `No existe un usuario con id ${data.idUsuarioUno}`,
       );
     }
 
     const usuarioDos = await this.prisma.usuario.findUnique({
-      where: { idUsuario: createMatchDto.idUsuarioDos },
+      where: { idUsuario: data.idUsuarioDos },
     });
 
     if (!usuarioDos) {
       throw new NotFoundException(
-        `No existe un usuario con id ${createMatchDto.idUsuarioDos}`,
+        `No existe un usuario con id ${data.idUsuarioDos}`,
       );
     }
 
+    const idUsuarioMenor = Math.min(data.idUsuarioUno, data.idUsuarioDos);
+    const idUsuarioMayor = Math.max(data.idUsuarioUno, data.idUsuarioDos);
+
     const likeUsuarioUno = await this.prisma.interaccion.findFirst({
       where: {
-        idUsuarioEmisor: createMatchDto.idUsuarioUno,
-        idUsuarioReceptor: createMatchDto.idUsuarioDos,
+        idUsuarioEmisor: idUsuarioMenor,
+        idUsuarioReceptor: idUsuarioMayor,
         tipoInteraccion: 'LIKE',
       },
     });
 
     const likeUsuarioDos = await this.prisma.interaccion.findFirst({
       where: {
-        idUsuarioEmisor: createMatchDto.idUsuarioDos,
-        idUsuarioReceptor: createMatchDto.idUsuarioUno,
+        idUsuarioEmisor: idUsuarioMayor,
+        idUsuarioReceptor: idUsuarioMenor,
         tipoInteraccion: 'LIKE',
       },
     });
@@ -56,15 +61,6 @@ export class MatchService {
         'No se puede crear el match porque no existe LIKE mutuo',
       );
     }
-
-    const idUsuarioMenor = Math.min(
-      createMatchDto.idUsuarioUno,
-      createMatchDto.idUsuarioDos,
-    );
-    const idUsuarioMayor = Math.max(
-      createMatchDto.idUsuarioUno,
-      createMatchDto.idUsuarioDos,
-    );
 
     const matchExistente = await this.prisma.match.findFirst({
       where: {
@@ -91,7 +87,7 @@ export class MatchService {
     });
   }
 
-  async findAll() {
+  async findAll(): Promise<Match[]> {
     return this.prisma.match.findMany({
       include: {
         usuarioUno: true,
@@ -103,7 +99,7 @@ export class MatchService {
     });
   }
 
-  async findOne(idMatch: number) {
+  async findOne(idMatch: number): Promise<Match> {
     const match = await this.prisma.match.findUnique({
       where: { idMatch },
       include: {
@@ -119,7 +115,7 @@ export class MatchService {
     return match;
   }
 
-  async update(idMatch: number, updateMatchDto: UpdateMatchDto) {
+  async update(idMatch: number, data: ActualizarMatch): Promise<Match> {
     const matchExistente = await this.prisma.match.findUnique({
       where: { idMatch },
     });
@@ -131,7 +127,7 @@ export class MatchService {
     return this.prisma.match.update({
       where: { idMatch },
       data: {
-        activo: updateMatchDto.activo,
+        activo: data.activo,
       },
       include: {
         usuarioUno: true,
@@ -140,7 +136,7 @@ export class MatchService {
     });
   }
 
-  async remove(idMatch: number) {
+  async remove(idMatch: number): Promise<Match> {
     const matchExistente = await this.prisma.match.findUnique({
       where: { idMatch },
     });

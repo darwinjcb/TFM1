@@ -1,35 +1,35 @@
 // src/match/infraestructura/match.controller.ts:
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { MatchService } from './match.service';
+import { MatchApplication } from '../aplicacion/match.application';
 import { CreateMatchDto } from './create-match.dto';
 import { UpdateMatchDto } from './update-match.dto';
 
 @Controller('match')
 export class MatchController {
-  constructor(private readonly matchService: MatchService) { }
+  constructor(private readonly matchApplication: MatchApplication) { }
 
   @Post()
   create(@Body() createMatchDto: CreateMatchDto) {
-    return this.matchService.create(createMatchDto);
+    return this.matchApplication.create(createMatchDto);
   }
 
   @Get()
   findAll() {
-    return this.matchService.findAll();
+    return this.matchApplication.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.matchService.findOne(Number(id));
+    return this.matchApplication.findOne(Number(id));
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMatchDto: UpdateMatchDto) {
-    return this.matchService.update(Number(id), updateMatchDto);
+    return this.matchApplication.update(Number(id), updateMatchDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.matchService.remove(Number(id));
+    return this.matchApplication.remove(Number(id));
   }
 }
