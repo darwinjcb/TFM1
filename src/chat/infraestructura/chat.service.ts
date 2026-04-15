@@ -1,7 +1,7 @@
-// src/chat/infraestructura/chat/chat.service.ts:
+// src/chat/infraestructura/chat.service.ts:
 import { Injectable } from '@nestjs/common';
-import { CreateChatDto } from './dto/create-chat.dto';
-import { UpdateChatDto } from './dto/update-chat.dto';
+import { CreateChatDto } from './create-chat.dto';
+import { UpdateChatDto } from './update-chat.dto';
 
 @Injectable()
 export class ChatService {

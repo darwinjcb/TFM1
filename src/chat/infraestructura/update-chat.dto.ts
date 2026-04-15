@@ -1,4 +1,4 @@
-// src/chat/infraestructura/chat/dto/update-chat.dto.ts:
+// src/chat/infraestructura/update-chat.dto.ts:
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateChatDto } from './create-chat.dto';
 
