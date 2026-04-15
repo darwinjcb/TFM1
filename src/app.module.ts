@@ -6,9 +6,10 @@ import { UsuarioModule } from './usuario/infraestructura/usuario.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { SuscripcionModule } from './suscripcion/infraestructura/suscripcion.module';
 import { InteraccionModule } from './interaccion/infraestructura/interaccion.module';
+import { MatchModule } from './match/infraestructura/match/match.module';
 
 @Module({
-  imports: [UsuarioModule, PrismaModule, SuscripcionModule, InteraccionModule],
+  imports: [UsuarioModule, PrismaModule, SuscripcionModule, InteraccionModule, MatchModule],
   controllers: [AppController],
   providers: [AppService],
 })
