@@ -1,2 +1,7 @@
 // src/suscripcion/infraestructura/suscripcion/dto/create-suscripcion.dto.ts:
-export class CreateSuscripcionDto { }
+export class CreateSuscripcionDto {
+    idUsuario: number;
+    idPlanSuscripcion: number;
+    fechaFin?: string;
+    activa?: boolean;
+}
