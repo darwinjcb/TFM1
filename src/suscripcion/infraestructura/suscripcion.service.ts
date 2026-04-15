@@ -1,52 +1,55 @@
 // src/suscripcion/infraestructura/suscripcion.service.ts:
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
-import { CreateSuscripcionDto } from './create-suscripcion.dto';
-import { UpdateSuscripcionDto } from './update-suscripcion.dto';
+import { ActualizarSuscripcionUsuario, CrearSuscripcionUsuario, SuscripcionUsuario, } from '../dominio/suscripcion';
+import { SuscripcionRepository } from '../dominio/suscripcion.repository';
 
 @Injectable()
-export class SuscripcionService {
-  constructor(private readonly prisma: PrismaService) { }
+export class SuscripcionService extends SuscripcionRepository {
+  constructor(private readonly prisma: PrismaService) {
+    super();
+  }
 
-  async create(createSuscripcionDto: CreateSuscripcionDto) {
+  async create(
+    data: CrearSuscripcionUsuario,
+  ): Promise<SuscripcionUsuario> {
     const usuario = await this.prisma.usuario.findUnique({
-      where: { idUsuario: createSuscripcionDto.idUsuario },
+      where: { idUsuario: data.idUsuario },
     });
 
     if (!usuario) {
       throw new NotFoundException(
-        `No existe un usuario con id ${createSuscripcionDto.idUsuario}`,
+        `No existe un usuario con id ${data.idUsuario}`,
       );
     }
 
     const plan = await this.prisma.planSuscripcion.findUnique({
-      where: { idPlanSuscripcion: createSuscripcionDto.idPlanSuscripcion },
+      where: { idPlanSuscripcion: data.idPlanSuscripcion },
     });
 
     if (!plan) {
       throw new NotFoundException(
-        `No existe un plan de suscripción con id ${createSuscripcionDto.idPlanSuscripcion}`,
+        `No existe un plan de suscripción con id ${data.idPlanSuscripcion}`,
       );
     }
 
-    const suscripcionExistente = await this.prisma.suscripcionUsuario.findUnique({
-      where: { idUsuario: createSuscripcionDto.idUsuario },
-    });
+    const suscripcionExistente =
+      await this.prisma.suscripcionUsuario.findUnique({
+        where: { idUsuario: data.idUsuario },
+      });
 
     if (suscripcionExistente) {
       throw new BadRequestException(
-        `El usuario con id ${createSuscripcionDto.idUsuario} ya tiene una suscripción registrada`,
+        `El usuario con id ${data.idUsuario} ya tiene una suscripción registrada`,
       );
     }
 
     return this.prisma.suscripcionUsuario.create({
       data: {
-        idUsuario: createSuscripcionDto.idUsuario,
-        idPlanSuscripcion: createSuscripcionDto.idPlanSuscripcion,
-        fechaFin: createSuscripcionDto.fechaFin
-          ? new Date(createSuscripcionDto.fechaFin)
-          : null,
-        activa: createSuscripcionDto.activa ?? true,
+        idUsuario: data.idUsuario,
+        idPlanSuscripcion: data.idPlanSuscripcion,
+        fechaFin: data.fechaFin ? new Date(data.fechaFin) : null,
+        activa: data.activa ?? true,
       },
       include: {
         usuario: true,
@@ -55,7 +58,7 @@ export class SuscripcionService {
     });
   }
 
-  async findAll() {
+  async findAll(): Promise<SuscripcionUsuario[]> {
     return this.prisma.suscripcionUsuario.findMany({
       include: {
         usuario: true,
@@ -67,7 +70,9 @@ export class SuscripcionService {
     });
   }
 
-  async findOne(idSuscripcionUsuario: number) {
+  async findOne(
+    idSuscripcionUsuario: number,
+  ): Promise<SuscripcionUsuario> {
     const suscripcion = await this.prisma.suscripcionUsuario.findUnique({
       where: { idSuscripcionUsuario },
       include: {
@@ -87,11 +92,12 @@ export class SuscripcionService {
 
   async update(
     idSuscripcionUsuario: number,
-    updateSuscripcionDto: UpdateSuscripcionDto,
-  ) {
-    const suscripcionExistente = await this.prisma.suscripcionUsuario.findUnique({
-      where: { idSuscripcionUsuario },
-    });
+    data: ActualizarSuscripcionUsuario,
+  ): Promise<SuscripcionUsuario> {
+    const suscripcionExistente =
+      await this.prisma.suscripcionUsuario.findUnique({
+        where: { idSuscripcionUsuario },
+      });
 
     if (!suscripcionExistente) {
       throw new NotFoundException(
@@ -99,14 +105,14 @@ export class SuscripcionService {
       );
     }
 
-    if (updateSuscripcionDto.idPlanSuscripcion !== undefined) {
+    if (data.idPlanSuscripcion !== undefined) {
       const plan = await this.prisma.planSuscripcion.findUnique({
-        where: { idPlanSuscripcion: updateSuscripcionDto.idPlanSuscripcion },
+        where: { idPlanSuscripcion: data.idPlanSuscripcion },
       });
 
       if (!plan) {
         throw new NotFoundException(
-          `No existe un plan de suscripción con id ${updateSuscripcionDto.idPlanSuscripcion}`,
+          `No existe un plan de suscripción con id ${data.idPlanSuscripcion}`,
         );
       }
     }
@@ -114,14 +120,14 @@ export class SuscripcionService {
     return this.prisma.suscripcionUsuario.update({
       where: { idSuscripcionUsuario },
       data: {
-        idPlanSuscripcion: updateSuscripcionDto.idPlanSuscripcion,
+        idPlanSuscripcion: data.idPlanSuscripcion,
         fechaFin:
-          updateSuscripcionDto.fechaFin !== undefined
-            ? updateSuscripcionDto.fechaFin
-              ? new Date(updateSuscripcionDto.fechaFin)
+          data.fechaFin !== undefined
+            ? data.fechaFin
+              ? new Date(data.fechaFin)
               : null
             : undefined,
-        activa: updateSuscripcionDto.activa,
+        activa: data.activa,
       },
       include: {
         usuario: true,
@@ -130,10 +136,13 @@ export class SuscripcionService {
     });
   }
 
-  async remove(idSuscripcionUsuario: number) {
-    const suscripcionExistente = await this.prisma.suscripcionUsuario.findUnique({
-      where: { idSuscripcionUsuario },
-    });
+  async remove(
+    idSuscripcionUsuario: number,
+  ): Promise<SuscripcionUsuario> {
+    const suscripcionExistente =
+      await this.prisma.suscripcionUsuario.findUnique({
+        where: { idSuscripcionUsuario },
+      });
 
     if (!suscripcionExistente) {
       throw new NotFoundException(
