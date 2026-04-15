@@ -1,67 +1,53 @@
 // src/usuario/infraestructura/usuario.service.ts:
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
-import { CreateUsuarioDto } from './create-usuario.dto';
-import { UpdateUsuarioDto } from './update-usuario.dto';
+import {
+  ActualizarUsuario,
+  CrearUsuario,
+  Usuario,
+} from '../dominio/usuario';
+import { UsuarioRepository } from '../dominio/usuario.repository';
 
 @Injectable()
-export class UsuarioService {
-  constructor(private readonly prisma: PrismaService) { }
+export class UsuarioService extends UsuarioRepository {
+  constructor(private readonly prisma: PrismaService) {
+    super();
+  }
 
-  async create(createUsuarioDto: CreateUsuarioDto) {
+  async create(data: CrearUsuario): Promise<Usuario> {
     return this.prisma.usuario.create({
       data: {
-        nombre: createUsuarioDto.nombre,
-        edad: createUsuarioDto.edad,
-        biografia: createUsuarioDto.biografia,
-        peso: createUsuarioDto.peso,
-        altura: createUsuarioDto.altura,
-        nacionalidad: createUsuarioDto.nacionalidad,
-        genero: createUsuarioDto.genero as any,
-        ciudad: createUsuarioDto.ciudad,
-        pais: createUsuarioDto.pais,
-        numero: createUsuarioDto.numero,
-        correo: createUsuarioDto.correo,
-        signoZodiacal: createUsuarioDto.signoZodiacal,
-        queBusca: createUsuarioDto.queBusca,
-        ubicacion: createUsuarioDto.ubicacion,
-        hobbie: createUsuarioDto.hobbie,
-        profesion: createUsuarioDto.profesion,
+        nombre: data.nombre,
+        edad: data.edad,
+        biografia: data.biografia,
+        peso: data.peso,
+        altura: data.altura,
+        nacionalidad: data.nacionalidad,
+        genero: data.genero,
+        ciudad: data.ciudad,
+        pais: data.pais,
+        numero: data.numero,
+        correo: data.correo,
+        signoZodiacal: data.signoZodiacal,
+        queBusca: data.queBusca,
+        ubicacion: data.ubicacion,
+        hobbie: data.hobbie,
+        profesion: data.profesion,
       },
     });
   }
 
-  async findAll() {
+  async findAll(): Promise<Usuario[]> {
     return this.prisma.usuario.findMany({
-      include: {
-        fotos: true,
-        suscripcion: {
-          include: {
-            planSuscripcion: true,
-          },
-        },
-        configuracionComunicacion: true,
-        estadoActividad: true,
-      },
       orderBy: {
         idUsuario: 'asc',
       },
     });
   }
 
-  async findOne(idUsuario: number) {
+  async findOne(idUsuario: number): Promise<Usuario> {
     const usuario = await this.prisma.usuario.findUnique({
       where: { idUsuario },
-      include: {
-        fotos: true,
-        suscripcion: {
-          include: {
-            planSuscripcion: true,
-          },
-        },
-        configuracionComunicacion: true,
-        estadoActividad: true,
-      },
     });
 
     if (!usuario) {
@@ -71,7 +57,10 @@ export class UsuarioService {
     return usuario;
   }
 
-  async update(idUsuario: number, updateUsuarioDto: UpdateUsuarioDto) {
+  async update(
+    idUsuario: number,
+    data: ActualizarUsuario,
+  ): Promise<Usuario> {
     const usuarioExistente = await this.prisma.usuario.findUnique({
       where: { idUsuario },
     });
@@ -83,27 +72,27 @@ export class UsuarioService {
     return this.prisma.usuario.update({
       where: { idUsuario },
       data: {
-        nombre: updateUsuarioDto.nombre,
-        edad: updateUsuarioDto.edad,
-        biografia: updateUsuarioDto.biografia,
-        peso: updateUsuarioDto.peso,
-        altura: updateUsuarioDto.altura,
-        nacionalidad: updateUsuarioDto.nacionalidad,
-        genero: updateUsuarioDto.genero as any,
-        ciudad: updateUsuarioDto.ciudad,
-        pais: updateUsuarioDto.pais,
-        numero: updateUsuarioDto.numero,
-        correo: updateUsuarioDto.correo,
-        signoZodiacal: updateUsuarioDto.signoZodiacal,
-        queBusca: updateUsuarioDto.queBusca,
-        ubicacion: updateUsuarioDto.ubicacion,
-        hobbie: updateUsuarioDto.hobbie,
-        profesion: updateUsuarioDto.profesion,
+        nombre: data.nombre,
+        edad: data.edad,
+        biografia: data.biografia,
+        peso: data.peso,
+        altura: data.altura,
+        nacionalidad: data.nacionalidad,
+        genero: data.genero,
+        ciudad: data.ciudad,
+        pais: data.pais,
+        numero: data.numero,
+        correo: data.correo,
+        signoZodiacal: data.signoZodiacal,
+        queBusca: data.queBusca,
+        ubicacion: data.ubicacion,
+        hobbie: data.hobbie,
+        profesion: data.profesion,
       },
     });
   }
 
-  async remove(idUsuario: number) {
+  async remove(idUsuario: number): Promise<Usuario> {
     const usuarioExistente = await this.prisma.usuario.findUnique({
       where: { idUsuario },
     });

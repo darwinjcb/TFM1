@@ -1,4 +1,6 @@
 // src/usuario/infraestructura/update-usuario.dto.ts:
+import { Genero } from '../dominio/genero.enum';
+
 export class UpdateUsuarioDto {
     nombre?: string;
     edad?: number;
@@ -6,7 +8,7 @@ export class UpdateUsuarioDto {
     peso?: number;
     altura?: number;
     nacionalidad?: string;
-    genero?: 'MASCULINO' | 'FEMENINO';
+    genero?: Genero;
     ciudad?: string;
     pais?: string;
     numero?: string;
