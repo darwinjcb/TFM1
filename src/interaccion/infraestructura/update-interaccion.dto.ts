@@ -1,4 +1,4 @@
-// src/interaccion/infraestructura/interaccion/dto/update-interaccion.dto.ts:
+// src/interaccion/infraestructura/update-interaccion.dto.ts:
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateInteraccionDto } from './create-interaccion.dto';
 

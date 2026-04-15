@@ -1,7 +1,7 @@
-// src/interaccion/infraestructura/interaccion/interaccion.service.ts:
+// src/interaccion/infraestructura/interaccion.service.ts:
 import { Injectable } from '@nestjs/common';
-import { CreateInteraccionDto } from './dto/create-interaccion.dto';
-import { UpdateInteraccionDto } from './dto/update-interaccion.dto';
+import { CreateInteraccionDto } from './create-interaccion.dto';
+import { UpdateInteraccionDto } from './update-interaccion.dto';
 
 @Injectable()
 export class InteraccionService {

@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 import { UsuarioModule } from './usuario/infraestructura/usuario.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { SuscripcionModule } from './suscripcion/infraestructura/suscripcion.module';
-import { InteraccionModule } from './interaccion/infraestructura/interaccion/interaccion.module';
+import { InteraccionModule } from './interaccion/infraestructura/interaccion.module';
 
 @Module({
   imports: [UsuarioModule, PrismaModule, SuscripcionModule, InteraccionModule],

@@ -1,8 +1,8 @@
-// src/interaccion/infraestructura/interaccion/interaccion.controller.ts:
+// src/interaccion/infraestructura/interaccion.controller.ts:
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { InteraccionService } from './interaccion.service';
-import { CreateInteraccionDto } from './dto/create-interaccion.dto';
-import { UpdateInteraccionDto } from './dto/update-interaccion.dto';
+import { CreateInteraccionDto } from './create-interaccion.dto';
+import { UpdateInteraccionDto } from './update-interaccion.dto';
 
 @Controller('interaccion')
 export class InteraccionController {
