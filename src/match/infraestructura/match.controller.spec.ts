@@ -1,4 +1,4 @@
-// src/match/infraestructura/match/match.controller.spec.ts:
+// src/match/infraestructura/match.controller.spec.ts:
 import { Test, TestingModule } from '@nestjs/testing';
 import { MatchController } from './match.controller';
 import { MatchService } from './match.service';

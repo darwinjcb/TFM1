@@ -1,7 +1,7 @@
-// src/match/infraestructura/match/match.service.ts:
+// src/match/infraestructura/match.service.ts:
 import { Injectable } from '@nestjs/common';
-import { CreateMatchDto } from './dto/create-match.dto';
-import { UpdateMatchDto } from './dto/update-match.dto';
+import { CreateMatchDto } from './create-match.dto';
+import { UpdateMatchDto } from './update-match.dto';
 
 @Injectable()
 export class MatchService {

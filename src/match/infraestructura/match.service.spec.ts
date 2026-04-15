@@ -1,4 +1,4 @@
-// src/match/infraestructura/match/match.service.spec.ts:
+// src/match/infraestructura/match.service.spec.ts:
 import { Test, TestingModule } from '@nestjs/testing';
 import { MatchService } from './match.service';
 

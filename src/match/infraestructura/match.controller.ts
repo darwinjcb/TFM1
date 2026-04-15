@@ -1,8 +1,8 @@
-// src/match/infraestructura/match/match.controller.ts:
+// src/match/infraestructura/match.controller.ts:
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { MatchService } from './match.service';
-import { CreateMatchDto } from './dto/create-match.dto';
-import { UpdateMatchDto } from './dto/update-match.dto';
+import { CreateMatchDto } from './create-match.dto';
+import { UpdateMatchDto } from './update-match.dto';
 
 @Controller('match')
 export class MatchController {
