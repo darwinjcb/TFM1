@@ -1,8 +1,8 @@
-// src/suscripcion/infraestructura/suscripcion/suscripcion.service.ts:
+// src/suscripcion/infraestructura/suscripcion.service.ts:
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../../../prisma/prisma.service';
-import { CreateSuscripcionDto } from './dto/create-suscripcion.dto';
-import { UpdateSuscripcionDto } from './dto/update-suscripcion.dto';
+import { PrismaService } from '../../prisma/prisma.service';
+import { CreateSuscripcionDto } from './create-suscripcion.dto';
+import { UpdateSuscripcionDto } from './update-suscripcion.dto';
 
 @Injectable()
 export class SuscripcionService {

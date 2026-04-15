@@ -4,7 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsuarioModule } from './usuario/infraestructura/usuario.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { SuscripcionModule } from './suscripcion/infraestructura/suscripcion/suscripcion.module';
+import { SuscripcionModule } from './suscripcion/infraestructura/suscripcion.module';
 
 @Module({
   imports: [UsuarioModule, PrismaModule, SuscripcionModule],

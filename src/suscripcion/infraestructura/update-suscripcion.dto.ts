@@ -1,4 +1,4 @@
-// src/suscripcion/infraestructura/suscripcion/dto/update-suscripcion.dto.ts:
+// src/suscripcion/infraestructura/update-suscripcion.dto.ts:
 export class UpdateSuscripcionDto {
     idPlanSuscripcion?: number;
     fechaFin?: string;

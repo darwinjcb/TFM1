@@ -1,8 +1,8 @@
-// src/suscripcion/infraestructura/suscripcion/suscripcion.controller.ts:
+// src/suscripcion/infraestructura/suscripcion.controller.ts:
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { SuscripcionService } from './suscripcion.service';
-import { CreateSuscripcionDto } from './dto/create-suscripcion.dto';
-import { UpdateSuscripcionDto } from './dto/update-suscripcion.dto';
+import { CreateSuscripcionDto } from './create-suscripcion.dto';
+import { UpdateSuscripcionDto } from './update-suscripcion.dto';
 
 @Controller('suscripcion')
 export class SuscripcionController {
