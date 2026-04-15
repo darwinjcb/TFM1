@@ -1,47 +1,54 @@
 // src/interaccion/infraestructura/interaccion.service.ts:
-import { BadRequestException, Injectable, NotFoundException, } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
-import { CreateInteraccionDto } from './create-interaccion.dto';
-import { UpdateInteraccionDto } from './update-interaccion.dto';
+import {
+  ActualizarInteraccion,
+  CrearInteraccion,
+  Interaccion,
+} from '../dominio/interaccion';
+import { InteraccionRepository } from '../dominio/interaccion.repository';
 
 @Injectable()
-export class InteraccionService {
-  constructor(private readonly prisma: PrismaService) { }
+export class InteraccionService extends InteraccionRepository {
+  constructor(private readonly prisma: PrismaService) {
+    super();
+  }
 
-  async create(createInteraccionDto: CreateInteraccionDto) {
-    if (
-      createInteraccionDto.idUsuarioEmisor ===
-      createInteraccionDto.idUsuarioReceptor
-    ) {
+  async create(data: CrearInteraccion): Promise<Interaccion> {
+    if (data.idUsuarioEmisor === data.idUsuarioReceptor) {
       throw new BadRequestException(
         'Un usuario no puede interactuar consigo mismo',
       );
     }
 
     const usuarioEmisor = await this.prisma.usuario.findUnique({
-      where: { idUsuario: createInteraccionDto.idUsuarioEmisor },
+      where: { idUsuario: data.idUsuarioEmisor },
     });
 
     if (!usuarioEmisor) {
       throw new NotFoundException(
-        `No existe un usuario emisor con id ${createInteraccionDto.idUsuarioEmisor}`,
+        `No existe un usuario emisor con id ${data.idUsuarioEmisor}`,
       );
     }
 
     const usuarioReceptor = await this.prisma.usuario.findUnique({
-      where: { idUsuario: createInteraccionDto.idUsuarioReceptor },
+      where: { idUsuario: data.idUsuarioReceptor },
     });
 
     if (!usuarioReceptor) {
       throw new NotFoundException(
-        `No existe un usuario receptor con id ${createInteraccionDto.idUsuarioReceptor}`,
+        `No existe un usuario receptor con id ${data.idUsuarioReceptor}`,
       );
     }
 
     const interaccionExistente = await this.prisma.interaccion.findFirst({
       where: {
-        idUsuarioEmisor: createInteraccionDto.idUsuarioEmisor,
-        idUsuarioReceptor: createInteraccionDto.idUsuarioReceptor,
+        idUsuarioEmisor: data.idUsuarioEmisor,
+        idUsuarioReceptor: data.idUsuarioReceptor,
       },
     });
 
@@ -53,9 +60,9 @@ export class InteraccionService {
 
     return this.prisma.interaccion.create({
       data: {
-        idUsuarioEmisor: createInteraccionDto.idUsuarioEmisor,
-        idUsuarioReceptor: createInteraccionDto.idUsuarioReceptor,
-        tipoInteraccion: createInteraccionDto.tipoInteraccion as any,
+        idUsuarioEmisor: data.idUsuarioEmisor,
+        idUsuarioReceptor: data.idUsuarioReceptor,
+        tipoInteraccion: data.tipoInteraccion,
       },
       include: {
         usuarioEmisor: true,
@@ -64,7 +71,7 @@ export class InteraccionService {
     });
   }
 
-  async findAll() {
+  async findAll(): Promise<Interaccion[]> {
     return this.prisma.interaccion.findMany({
       include: {
         usuarioEmisor: true,
@@ -76,7 +83,7 @@ export class InteraccionService {
     });
   }
 
-  async findOne(idInteraccion: number) {
+  async findOne(idInteraccion: number): Promise<Interaccion> {
     const interaccion = await this.prisma.interaccion.findUnique({
       where: { idInteraccion },
       include: {
@@ -96,8 +103,8 @@ export class InteraccionService {
 
   async update(
     idInteraccion: number,
-    updateInteraccionDto: UpdateInteraccionDto,
-  ) {
+    data: ActualizarInteraccion,
+  ): Promise<Interaccion> {
     const interaccionExistente = await this.prisma.interaccion.findUnique({
       where: { idInteraccion },
     });
@@ -111,7 +118,7 @@ export class InteraccionService {
     return this.prisma.interaccion.update({
       where: { idInteraccion },
       data: {
-        tipoInteraccion: updateInteraccionDto.tipoInteraccion as any,
+        tipoInteraccion: data.tipoInteraccion,
       },
       include: {
         usuarioEmisor: true,
@@ -120,7 +127,7 @@ export class InteraccionService {
     });
   }
 
-  async remove(idInteraccion: number) {
+  async remove(idInteraccion: number): Promise<Interaccion> {
     const interaccionExistente = await this.prisma.interaccion.findUnique({
       where: { idInteraccion },
     });

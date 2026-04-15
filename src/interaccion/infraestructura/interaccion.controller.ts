@@ -1,35 +1,43 @@
 // src/interaccion/infraestructura/interaccion.controller.ts:
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { InteraccionService } from './interaccion.service';
-import { CreateInteraccionDto } from './/create-interaccion.dto';
-import { UpdateInteraccionDto } from './/update-interaccion.dto';
+import { InteraccionApplication } from '../aplicacion/interaccion.application';
+import { CreateInteraccionDto } from './create-interaccion.dto';
+import { UpdateInteraccionDto } from './update-interaccion.dto';
 
 @Controller('interaccion')
 export class InteraccionController {
-  constructor(private readonly interaccionService: InteraccionService) { }
+  constructor(
+    private readonly interaccionApplication: InteraccionApplication,
+  ) { }
 
   @Post()
   create(@Body() createInteraccionDto: CreateInteraccionDto) {
-    return this.interaccionService.create(createInteraccionDto);
+    return this.interaccionApplication.create(createInteraccionDto);
   }
 
   @Get()
   findAll() {
-    return this.interaccionService.findAll();
+    return this.interaccionApplication.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.interaccionService.findOne(Number(id));
+    return this.interaccionApplication.findOne(Number(id));
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateInteraccionDto: UpdateInteraccionDto) {
-    return this.interaccionService.update(Number(id), updateInteraccionDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateInteraccionDto: UpdateInteraccionDto,
+  ) {
+    return this.interaccionApplication.update(
+      Number(id),
+      updateInteraccionDto,
+    );
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.interaccionService.remove(Number(id));
+    return this.interaccionApplication.remove(Number(id));
   }
 }
