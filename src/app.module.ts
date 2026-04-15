@@ -7,9 +7,10 @@ import { PrismaModule } from './prisma/prisma.module';
 import { SuscripcionModule } from './suscripcion/infraestructura/suscripcion.module';
 import { InteraccionModule } from './interaccion/infraestructura/interaccion.module';
 import { MatchModule } from './match/infraestructura/match.module';
+import { ChatModule } from './chat/infraestructura/chat/chat.module';
 
 @Module({
-  imports: [UsuarioModule, PrismaModule, SuscripcionModule, InteraccionModule, MatchModule],
+  imports: [UsuarioModule, PrismaModule, SuscripcionModule, InteraccionModule, MatchModule, ChatModule],
   controllers: [AppController],
   providers: [AppService],
 })
