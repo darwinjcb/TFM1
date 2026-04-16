@@ -9,9 +9,10 @@ import { InteraccionModule } from './interaccion/infraestructura/interaccion.mod
 import { MatchModule } from './match/infraestructura/match.module';
 import { ChatModule } from './chat/infraestructura/chat.module';
 import { MensajeModule } from './mensaje/infraestructura/mensaje.module';
+import { MusicaModule } from './musica/infraestructura/musica/musica.module';
 
 @Module({
-  imports: [UsuarioModule, PrismaModule, SuscripcionModule, InteraccionModule, MatchModule, ChatModule, MensajeModule],
+  imports: [UsuarioModule, PrismaModule, SuscripcionModule, InteraccionModule, MatchModule, ChatModule, MensajeModule, MusicaModule],
   controllers: [AppController],
   providers: [AppService],
 })
