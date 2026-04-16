@@ -1,9 +1,6 @@
 // src/mensaje/aplicacion/mensaje.application.ts:
 import { Injectable } from '@nestjs/common';
-import {
-    ActualizarMensaje,
-    CrearMensaje,
-} from '../dominio/mensaje';
+import { ActualizarMensaje, CrearMensaje, } from '../dominio/mensaje';
 import { MensajeRepository } from '../dominio/mensaje.repository';
 
 @Injectable()
