@@ -1,7 +1,7 @@
-// src/musica/infraestructura/musica/musica.service.ts:
+// src/musica/infraestructura/musica.service.ts:
 import { Injectable } from '@nestjs/common';
-import { CreateMusicaDto } from './dto/create-musica.dto';
-import { UpdateMusicaDto } from './dto/update-musica.dto';
+import { CreateMusicaDto } from './create-musica.dto';
+import { UpdateMusicaDto } from './update-musica.dto';
 
 @Injectable()
 export class MusicaService {

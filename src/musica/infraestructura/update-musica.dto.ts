@@ -1,4 +1,4 @@
-// src/musica/infraestructura/musica/dto/update-musica.dto.ts:
+// src/musica/infraestructura/update-musica.dto.ts:
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateMusicaDto } from './create-musica.dto';
 

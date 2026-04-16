@@ -1,4 +1,4 @@
-// src/musica/infraestructura/musica/musica.service.spec.ts:
+// src/musica/infraestructura/musica.service.spec.ts:
 import { Test, TestingModule } from '@nestjs/testing';
 import { MusicaService } from './musica.service';
 

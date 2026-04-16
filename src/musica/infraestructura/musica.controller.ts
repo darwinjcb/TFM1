@@ -1,8 +1,8 @@
-// src/musica/infraestructura/musica/musica.controller.ts:
+// src/musica/infraestructura/musica.controller.ts:
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { MusicaService } from './musica.service';
-import { CreateMusicaDto } from './dto/create-musica.dto';
-import { UpdateMusicaDto } from './dto/update-musica.dto';
+import { CreateMusicaDto } from './create-musica.dto';
+import { UpdateMusicaDto } from './update-musica.dto';
 
 @Controller('musica')
 export class MusicaController {

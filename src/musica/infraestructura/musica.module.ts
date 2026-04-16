@@ -1,4 +1,4 @@
-// src/musica/infraestructura/musica/musica.module.ts:
+// src/musica/infraestructura/musica.module.ts:
 import { Module } from '@nestjs/common';
 import { MusicaService } from './musica.service';
 import { MusicaController } from './musica.controller';
