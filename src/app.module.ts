@@ -13,9 +13,10 @@ import { MusicaModule } from './musica/infraestructura/musica.module';
 import { ConfiguracionComunicacionModule } from './configuracion-comunicacion/infraestructura/configuracion-comunicacion.module';
 import { EstadoActividadModule } from './estado-actividad/infraestructura/estado-actividad.module';
 import { BloqueoModule } from './bloqueo/infraestructura/bloqueo.module';
+import { ReporteModule } from './reporte/infraestructura/reporte/reporte.module';
 
 @Module({
-  imports: [UsuarioModule, PrismaModule, SuscripcionModule, InteraccionModule, MatchModule, ChatModule, MensajeModule, MusicaModule, ConfiguracionComunicacionModule, EstadoActividadModule, BloqueoModule],
+  imports: [UsuarioModule, PrismaModule, SuscripcionModule, InteraccionModule, MatchModule, ChatModule, MensajeModule, MusicaModule, ConfiguracionComunicacionModule, EstadoActividadModule, BloqueoModule, ReporteModule],
   controllers: [AppController],
   providers: [AppService],
 })
