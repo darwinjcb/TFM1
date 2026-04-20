@@ -1,7 +1,7 @@
-// src/bloqueo/infraestructura/bloqueo/bloqueo.service.ts:
+// src/bloqueo/infraestructura/bloqueo.service.ts:
 import { Injectable } from '@nestjs/common';
-import { CreateBloqueoDto } from './dto/create-bloqueo.dto';
-import { UpdateBloqueoDto } from './dto/update-bloqueo.dto';
+import { CreateBloqueoDto } from './create-bloqueo.dto';
+import { UpdateBloqueoDto } from './update-bloqueo.dto';
 
 @Injectable()
 export class BloqueoService {

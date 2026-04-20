@@ -1,4 +1,4 @@
-// src/bloqueo/infraestructura/bloqueo/dto/update-bloqueo.dto.ts:
+// src/bloqueo/infraestructura/update-bloqueo.dto.ts:
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateBloqueoDto } from './create-bloqueo.dto';
 

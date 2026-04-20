@@ -1,4 +1,4 @@
-// src/bloqueo/infraestructura/bloqueo/bloqueo.module.ts:
+// src/bloqueo/infraestructura/bloqueo.module.ts:
 import { Module } from '@nestjs/common';
 import { BloqueoService } from './bloqueo.service';
 import { BloqueoController } from './bloqueo.controller';

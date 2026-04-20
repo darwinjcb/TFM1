@@ -1,8 +1,8 @@
-// src/bloqueo/infraestructura/bloqueo/bloqueo.controller.ts:
+// src/bloqueo/infraestructura/bloqueo.controller.ts:
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { BloqueoService } from './bloqueo.service';
-import { CreateBloqueoDto } from './dto/create-bloqueo.dto';
-import { UpdateBloqueoDto } from './dto/update-bloqueo.dto';
+import { CreateBloqueoDto } from './create-bloqueo.dto';
+import { UpdateBloqueoDto } from './update-bloqueo.dto';
 
 @Controller('bloqueo')
 export class BloqueoController {
