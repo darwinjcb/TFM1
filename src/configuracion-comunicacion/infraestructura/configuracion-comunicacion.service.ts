@@ -1,7 +1,7 @@
-// src/configuracion-comunicacion/infraestructura/configuracion-comunicacion/configuracion-comunicacion.service.ts:
+// src/configuracion-comunicacion/infraestructura/configuracion-comunicacion.service.ts:
 import { Injectable } from '@nestjs/common';
-import { CreateConfiguracionComunicacionDto } from './dto/create-configuracion-comunicacion.dto';
-import { UpdateConfiguracionComunicacionDto } from './dto/update-configuracion-comunicacion.dto';
+import { CreateConfiguracionComunicacionDto } from './create-configuracion-comunicacion.dto';
+import { UpdateConfiguracionComunicacionDto } from './update-configuracion-comunicacion.dto';
 
 @Injectable()
 export class ConfiguracionComunicacionService {

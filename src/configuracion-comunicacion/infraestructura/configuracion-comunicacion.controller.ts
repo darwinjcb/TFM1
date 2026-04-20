@@ -1,8 +1,8 @@
-// src/configuracion-comunicacion/infraestructura/configuracion-comunicacion/configuracion-comunicacion.controller.ts:
+// src/configuracion-comunicacion/infraestructura/configuracion-comunicacion.controller.ts:
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ConfiguracionComunicacionService } from './configuracion-comunicacion.service';
-import { CreateConfiguracionComunicacionDto } from './dto/create-configuracion-comunicacion.dto';
-import { UpdateConfiguracionComunicacionDto } from './dto/update-configuracion-comunicacion.dto';
+import { CreateConfiguracionComunicacionDto } from './create-configuracion-comunicacion.dto';
+import { UpdateConfiguracionComunicacionDto } from './update-configuracion-comunicacion.dto';
 
 @Controller('configuracion-comunicacion')
 export class ConfiguracionComunicacionController {

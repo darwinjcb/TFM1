@@ -1,4 +1,4 @@
-// src/configuracion-comunicacion/infraestructura/configuracion-comunicacion/dto/update-configuracion-comunicacion.dto.ts:
+// src/configuracion-comunicacion/infraestructura/update-configuracion-comunicacion.dto.ts:
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateConfiguracionComunicacionDto } from './create-configuracion-comunicacion.dto';
 

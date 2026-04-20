@@ -1,4 +1,4 @@
-// src/configuracion-comunicacion/infraestructura/configuracion-comunicacion/configuracion-comunicacion.controller.spec.ts:
+// src/configuracion-comunicacion/infraestructura/configuracion-comunicacion.controller.spec.ts:
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConfiguracionComunicacionController } from './configuracion-comunicacion.controller';
 import { ConfiguracionComunicacionService } from './configuracion-comunicacion.service';
