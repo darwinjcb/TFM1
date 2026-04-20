@@ -1,8 +1,8 @@
-// src/estado-actividad/infraestructura/estado-actividad/estado-actividad.controller.ts:
+// src/estado-actividad/infraestructura/estado-actividad.controller.ts:
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { EstadoActividadService } from './estado-actividad.service';
-import { CreateEstadoActividadDto } from './dto/create-estado-actividad.dto';
-import { UpdateEstadoActividadDto } from './dto/update-estado-actividad.dto';
+import { CreateEstadoActividadDto } from './create-estado-actividad.dto';
+import { UpdateEstadoActividadDto } from './update-estado-actividad.dto';
 
 @Controller('estado-actividad')
 export class EstadoActividadController {

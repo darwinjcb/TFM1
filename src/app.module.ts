@@ -11,7 +11,7 @@ import { ChatModule } from './chat/infraestructura/chat.module';
 import { MensajeModule } from './mensaje/infraestructura/mensaje.module';
 import { MusicaModule } from './musica/infraestructura/musica.module';
 import { ConfiguracionComunicacionModule } from './configuracion-comunicacion/infraestructura/configuracion-comunicacion.module';
-import { EstadoActividadModule } from './estado-actividad/infraestructura/estado-actividad/estado-actividad.module';
+import { EstadoActividadModule } from './estado-actividad/infraestructura/estado-actividad.module';
 
 @Module({
   imports: [UsuarioModule, PrismaModule, SuscripcionModule, InteraccionModule, MatchModule, ChatModule, MensajeModule, MusicaModule, ConfiguracionComunicacionModule, EstadoActividadModule],
