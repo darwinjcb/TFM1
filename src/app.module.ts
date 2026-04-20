@@ -10,9 +10,10 @@ import { MatchModule } from './match/infraestructura/match.module';
 import { ChatModule } from './chat/infraestructura/chat.module';
 import { MensajeModule } from './mensaje/infraestructura/mensaje.module';
 import { MusicaModule } from './musica/infraestructura/musica.module';
+import { ConfiguracionComunicacionModule } from './configuracion-comunicacion/infraestructura/configuracion-comunicacion/configuracion-comunicacion.module';
 
 @Module({
-  imports: [UsuarioModule, PrismaModule, SuscripcionModule, InteraccionModule, MatchModule, ChatModule, MensajeModule, MusicaModule],
+  imports: [UsuarioModule, PrismaModule, SuscripcionModule, InteraccionModule, MatchModule, ChatModule, MensajeModule, MusicaModule, ConfiguracionComunicacionModule],
   controllers: [AppController],
   providers: [AppService],
 })
