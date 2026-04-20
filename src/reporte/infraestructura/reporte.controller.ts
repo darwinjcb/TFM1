@@ -1,8 +1,8 @@
-// src/reporte/infraestructura/reporte/reporte.controller.ts:
+// src/reporte/infraestructura/reporte.controller.ts:
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ReporteService } from './reporte.service';
-import { CreateReporteDto } from './dto/create-reporte.dto';
-import { UpdateReporteDto } from './dto/update-reporte.dto';
+import { CreateReporteDto } from './create-reporte.dto';
+import { UpdateReporteDto } from './update-reporte.dto';
 
 @Controller('reporte')
 export class ReporteController {

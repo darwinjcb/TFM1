@@ -1,4 +1,4 @@
-// src/reporte/infraestructura/reporte/reporte.module.ts:
+// src/reporte/infraestructura/reporte.module.ts:
 import { Module } from '@nestjs/common';
 import { ReporteService } from './reporte.service';
 import { ReporteController } from './reporte.controller';

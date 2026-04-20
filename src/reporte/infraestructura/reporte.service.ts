@@ -1,7 +1,7 @@
-// src/reporte/infraestructura/reporte/reporte.service.ts:
+// src/reporte/infraestructura/reporte.service.ts:
 import { Injectable } from '@nestjs/common';
-import { CreateReporteDto } from './dto/create-reporte.dto';
-import { UpdateReporteDto } from './dto/update-reporte.dto';
+import { CreateReporteDto } from './create-reporte.dto';
+import { UpdateReporteDto } from './update-reporte.dto';
 
 @Injectable()
 export class ReporteService {
