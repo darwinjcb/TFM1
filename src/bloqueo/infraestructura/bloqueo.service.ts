@@ -1,27 +1,135 @@
 // src/bloqueo/infraestructura/bloqueo.service.ts:
-import { Injectable } from '@nestjs/common';
-import { CreateBloqueoDto } from './create-bloqueo.dto';
-import { UpdateBloqueoDto } from './update-bloqueo.dto';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { PrismaService } from '../../prisma/prisma.service';
+import { ActualizarBloqueo, Bloqueo, CrearBloqueo } from '../dominio/bloqueo';
+import { BloqueoRepository } from '../dominio/bloqueo.repository';
 
 @Injectable()
-export class BloqueoService {
-  create(createBloqueoDto: CreateBloqueoDto) {
-    return 'This action adds a new bloqueo';
+export class BloqueoService extends BloqueoRepository {
+  constructor(private readonly prisma: PrismaService) {
+    super();
   }
 
-  findAll() {
-    return `This action returns all bloqueo`;
+  async create(data: CrearBloqueo): Promise<Bloqueo> {
+    if (data.idUsuarioBloqueador === data.idUsuarioBloqueado) {
+      throw new BadRequestException(
+        'Un usuario no puede bloquearse a sí mismo',
+      );
+    }
+
+    const usuarioBloqueador = await this.prisma.usuario.findUnique({
+      where: { idUsuario: data.idUsuarioBloqueador },
+    });
+
+    if (!usuarioBloqueador) {
+      throw new NotFoundException(
+        `No existe un usuario bloqueador con id ${data.idUsuarioBloqueador}`,
+      );
+    }
+
+    const usuarioBloqueado = await this.prisma.usuario.findUnique({
+      where: { idUsuario: data.idUsuarioBloqueado },
+    });
+
+    if (!usuarioBloqueado) {
+      throw new NotFoundException(
+        `No existe un usuario bloqueado con id ${data.idUsuarioBloqueado}`,
+      );
+    }
+
+    const bloqueoExistente = await this.prisma.bloqueo.findFirst({
+      where: {
+        idUsuarioBloqueador: data.idUsuarioBloqueador,
+        idUsuarioBloqueado: data.idUsuarioBloqueado,
+      },
+    });
+
+    if (bloqueoExistente) {
+      throw new BadRequestException(
+        'Ya existe un bloqueo entre estos usuarios',
+      );
+    }
+
+    return this.prisma.bloqueo.create({
+      data: {
+        idUsuarioBloqueador: data.idUsuarioBloqueador,
+        idUsuarioBloqueado: data.idUsuarioBloqueado,
+      },
+      include: {
+        usuarioBloqueador: true,
+        usuarioBloqueado: true,
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} bloqueo`;
+  async findAll(): Promise<Bloqueo[]> {
+    return this.prisma.bloqueo.findMany({
+      include: {
+        usuarioBloqueador: true,
+        usuarioBloqueado: true,
+      },
+      orderBy: {
+        idBloqueo: 'asc',
+      },
+    });
   }
 
-  update(id: number, updateBloqueoDto: UpdateBloqueoDto) {
-    return `This action updates a #${id} bloqueo`;
+  async findOne(idBloqueo: number): Promise<Bloqueo> {
+    const bloqueo = await this.prisma.bloqueo.findUnique({
+      where: { idBloqueo },
+      include: {
+        usuarioBloqueador: true,
+        usuarioBloqueado: true,
+      },
+    });
+
+    if (!bloqueo) {
+      throw new NotFoundException(`No existe un bloqueo con id ${idBloqueo}`);
+    }
+
+    return bloqueo;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} bloqueo`;
+  async update(
+    idBloqueo: number,
+    _data: ActualizarBloqueo,
+  ): Promise<Bloqueo> {
+    const bloqueo = await this.prisma.bloqueo.findUnique({
+      where: { idBloqueo },
+      include: {
+        usuarioBloqueador: true,
+        usuarioBloqueado: true,
+      },
+    });
+
+    if (!bloqueo) {
+      throw new NotFoundException(`No existe un bloqueo con id ${idBloqueo}`);
+    }
+
+    return bloqueo;
+  }
+
+  async remove(idBloqueo: number): Promise<Bloqueo> {
+    const bloqueo = await this.prisma.bloqueo.findUnique({
+      where: { idBloqueo },
+      include: {
+        usuarioBloqueador: true,
+        usuarioBloqueado: true,
+      },
+    });
+
+    if (!bloqueo) {
+      throw new NotFoundException(`No existe un bloqueo con id ${idBloqueo}`);
+    }
+
+    await this.prisma.bloqueo.delete({
+      where: { idBloqueo },
+    });
+
+    return bloqueo;
   }
 }

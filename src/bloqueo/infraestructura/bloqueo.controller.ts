@@ -1,35 +1,35 @@
 // src/bloqueo/infraestructura/bloqueo.controller.ts:
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { BloqueoService } from './bloqueo.service';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { BloqueoApplication } from '../aplicacion/bloqueo.application';
 import { CreateBloqueoDto } from './create-bloqueo.dto';
 import { UpdateBloqueoDto } from './update-bloqueo.dto';
 
 @Controller('bloqueo')
 export class BloqueoController {
-  constructor(private readonly bloqueoService: BloqueoService) { }
+  constructor(private readonly bloqueoApplication: BloqueoApplication) { }
 
   @Post()
   create(@Body() createBloqueoDto: CreateBloqueoDto) {
-    return this.bloqueoService.create(createBloqueoDto);
+    return this.bloqueoApplication.create(createBloqueoDto);
   }
 
   @Get()
   findAll() {
-    return this.bloqueoService.findAll();
+    return this.bloqueoApplication.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.bloqueoService.findOne(+id);
+    return this.bloqueoApplication.findOne(Number(id));
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBloqueoDto: UpdateBloqueoDto) {
-    return this.bloqueoService.update(+id, updateBloqueoDto);
+    return this.bloqueoApplication.update(Number(id), updateBloqueoDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.bloqueoService.remove(+id);
+    return this.bloqueoApplication.remove(Number(id));
   }
 }
