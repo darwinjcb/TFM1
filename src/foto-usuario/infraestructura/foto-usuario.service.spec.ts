@@ -1,4 +1,4 @@
-// src/foto-usuario/infraestructura/foto-usuario/foto-usuario.service.spec.ts:
+// src/foto-usuario/infraestructura/foto-usuario.service.spec.ts:
 import { Test, TestingModule } from '@nestjs/testing';
 import { FotoUsuarioService } from './foto-usuario.service';
 

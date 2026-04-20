@@ -1,7 +1,7 @@
-// src/foto-usuario/infraestructura/foto-usuario/foto-usuario.service.ts:
+// src/foto-usuario/infraestructura/foto-usuario.service.ts:
 import { Injectable } from '@nestjs/common';
-import { CreateFotoUsuarioDto } from './dto/create-foto-usuario.dto';
-import { UpdateFotoUsuarioDto } from './dto/update-foto-usuario.dto';
+import { CreateFotoUsuarioDto } from './create-foto-usuario.dto';
+import { UpdateFotoUsuarioDto } from './update-foto-usuario.dto';
 
 @Injectable()
 export class FotoUsuarioService {

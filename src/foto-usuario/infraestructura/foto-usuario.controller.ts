@@ -1,8 +1,8 @@
-// src/foto-usuario/infraestructura/foto-usuario/foto-usuario.controller.ts:
+// src/foto-usuario/infraestructura/foto-usuario.controller.ts:
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { FotoUsuarioService } from './foto-usuario.service';
-import { CreateFotoUsuarioDto } from './dto/create-foto-usuario.dto';
-import { UpdateFotoUsuarioDto } from './dto/update-foto-usuario.dto';
+import { CreateFotoUsuarioDto } from './create-foto-usuario.dto';
+import { UpdateFotoUsuarioDto } from './update-foto-usuario.dto';
 
 @Controller('foto-usuario')
 export class FotoUsuarioController {
