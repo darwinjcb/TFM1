@@ -1,5 +1,4 @@
 // src/reporte/infraestructura/update-reporte.dto.ts:
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateReporteDto } from './create-reporte.dto';
-
-export class UpdateReporteDto extends PartialType(CreateReporteDto) { }
+export class UpdateReporteDto {
+    descripcion?: string;
+}

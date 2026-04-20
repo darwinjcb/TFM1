@@ -1,35 +1,35 @@
 // src/reporte/infraestructura/reporte.controller.ts:
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ReporteService } from './reporte.service';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { ReporteApplication } from '../aplicacion/reporte.application';
 import { CreateReporteDto } from './create-reporte.dto';
 import { UpdateReporteDto } from './update-reporte.dto';
 
 @Controller('reporte')
 export class ReporteController {
-  constructor(private readonly reporteService: ReporteService) { }
+  constructor(private readonly reporteApplication: ReporteApplication) { }
 
   @Post()
   create(@Body() createReporteDto: CreateReporteDto) {
-    return this.reporteService.create(createReporteDto);
+    return this.reporteApplication.create(createReporteDto);
   }
 
   @Get()
   findAll() {
-    return this.reporteService.findAll();
+    return this.reporteApplication.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.reporteService.findOne(+id);
+    return this.reporteApplication.findOne(Number(id));
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateReporteDto: UpdateReporteDto) {
-    return this.reporteService.update(+id, updateReporteDto);
+    return this.reporteApplication.update(Number(id), updateReporteDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.reporteService.remove(+id);
+    return this.reporteApplication.remove(Number(id));
   }
 }

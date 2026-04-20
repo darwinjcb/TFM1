@@ -1,10 +1,19 @@
 // src/reporte/infraestructura/reporte.module.ts:
 import { Module } from '@nestjs/common';
-import { ReporteService } from './reporte.service';
+import { ReporteApplication } from '../aplicacion/reporte.application';
+import { ReporteRepository } from '../dominio/reporte.repository';
 import { ReporteController } from './reporte.controller';
+import { ReporteService } from './reporte.service';
 
 @Module({
   controllers: [ReporteController],
-  providers: [ReporteService],
+  providers: [
+    ReporteApplication,
+    ReporteService,
+    {
+      provide: ReporteRepository,
+      useExisting: ReporteService,
+    },
+  ],
 })
 export class ReporteModule { }
