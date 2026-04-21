@@ -1,27 +1,119 @@
 // src/restriccion-usuario/infraestructura/restriccion-usuario.service.ts:
-import { Injectable } from '@nestjs/common';
-import { CreateRestriccionUsuarioDto } from './create-restriccion-usuario.dto';
-import { UpdateRestriccionUsuarioDto } from './update-restriccion-usuario.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from '../../prisma/prisma.service';
+import { ActualizarRestriccionUsuario, CrearRestriccionUsuario, RestriccionUsuario, } from '../dominio/restriccion-usuario';
+import { RestriccionUsuarioRepository } from '../dominio/restriccion-usuario.repository';
 
 @Injectable()
-export class RestriccionUsuarioService {
-  create(createRestriccionUsuarioDto: CreateRestriccionUsuarioDto) {
-    return 'This action adds a new restriccionUsuario';
+export class RestriccionUsuarioService
+  extends RestriccionUsuarioRepository {
+  constructor(private readonly prisma: PrismaService) {
+    super();
   }
 
-  findAll() {
-    return `This action returns all restriccionUsuario`;
+  async create(
+    data: CrearRestriccionUsuario,
+  ): Promise<RestriccionUsuario> {
+    const usuario = await this.prisma.usuario.findUnique({
+      where: { idUsuario: data.idUsuario },
+    });
+
+    if (!usuario) {
+      throw new NotFoundException(
+        `No existe un usuario con id ${data.idUsuario}`,
+      );
+    }
+
+    return this.prisma.restriccionUsuario.create({
+      data: {
+        idUsuario: data.idUsuario,
+        descripcion: data.descripcion,
+        activa: data.activa ?? true,
+      },
+      include: {
+        usuario: true,
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} restriccionUsuario`;
+  async findAll(): Promise<RestriccionUsuario[]> {
+    return this.prisma.restriccionUsuario.findMany({
+      include: {
+        usuario: true,
+      },
+      orderBy: {
+        idRestriccion: 'asc',
+      },
+    });
   }
 
-  update(id: number, updateRestriccionUsuarioDto: UpdateRestriccionUsuarioDto) {
-    return `This action updates a #${id} restriccionUsuario`;
+  async findOne(
+    idRestriccion: number,
+  ): Promise<RestriccionUsuario> {
+    const restriccion = await this.prisma.restriccionUsuario.findUnique({
+      where: { idRestriccion },
+      include: {
+        usuario: true,
+      },
+    });
+
+    if (!restriccion) {
+      throw new NotFoundException(
+        `No existe una restricción con id ${idRestriccion}`,
+      );
+    }
+
+    return restriccion;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} restriccionUsuario`;
+  async update(
+    idRestriccion: number,
+    data: ActualizarRestriccionUsuario,
+  ): Promise<RestriccionUsuario> {
+    const restriccionExistente =
+      await this.prisma.restriccionUsuario.findUnique({
+        where: { idRestriccion },
+      });
+
+    if (!restriccionExistente) {
+      throw new NotFoundException(
+        `No existe una restricción con id ${idRestriccion}`,
+      );
+    }
+
+    return this.prisma.restriccionUsuario.update({
+      where: { idRestriccion },
+      data: {
+        descripcion: data.descripcion,
+        activa: data.activa,
+      },
+      include: {
+        usuario: true,
+      },
+    });
+  }
+
+  async remove(
+    idRestriccion: number,
+  ): Promise<RestriccionUsuario> {
+    const restriccionExistente =
+      await this.prisma.restriccionUsuario.findUnique({
+        where: { idRestriccion },
+        include: {
+          usuario: true,
+        },
+      });
+
+    if (!restriccionExistente) {
+      throw new NotFoundException(
+        `No existe una restricción con id ${idRestriccion}`,
+      );
+    }
+
+    await this.prisma.restriccionUsuario.delete({
+      where: { idRestriccion },
+    });
+
+    return restriccionExistente;
   }
 }
