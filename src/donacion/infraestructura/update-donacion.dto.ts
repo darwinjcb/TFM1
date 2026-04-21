@@ -1,4 +1,4 @@
-// src/donacion/infraestructura/donacion/dto/update-donacion.dto.ts:
+// src/donacion/infraestructura/update-donacion.dto.ts:
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateDonacionDto } from './create-donacion.dto';
 

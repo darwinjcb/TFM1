@@ -1,4 +1,4 @@
-// src/donacion/infraestructura/donacion/donacion.controller.spec.ts:
+// src/donacion/infraestructura/donacion.controller.spec.ts:
 import { Test, TestingModule } from '@nestjs/testing';
 import { DonacionController } from './donacion.controller';
 import { DonacionService } from './donacion.service';

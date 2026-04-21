@@ -1,4 +1,4 @@
-// src/donacion/infraestructura/donacion/donacion.module.ts:
+// src/donacion/infraestructura/donacion.module.ts:
 import { Module } from '@nestjs/common';
 import { DonacionService } from './donacion.service';
 import { DonacionController } from './donacion.controller';

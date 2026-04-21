@@ -1,8 +1,8 @@
-// src/donacion/infraestructura/donacion/donacion.controller.ts:
+// src/donacion/infraestructura/donacion.controller.ts:
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { DonacionService } from './donacion.service';
-import { CreateDonacionDto } from './dto/create-donacion.dto';
-import { UpdateDonacionDto } from './dto/update-donacion.dto';
+import { CreateDonacionDto } from './create-donacion.dto';
+import { UpdateDonacionDto } from './update-donacion.dto';
 
 @Controller('donacion')
 export class DonacionController {

@@ -1,7 +1,7 @@
-// src/donacion/infraestructura/donacion/donacion.service.ts:
+// src/donacion/infraestructura/donacion.service.ts:
 import { Injectable } from '@nestjs/common';
-import { CreateDonacionDto } from './dto/create-donacion.dto';
-import { UpdateDonacionDto } from './dto/update-donacion.dto';
+import { CreateDonacionDto } from './create-donacion.dto';
+import { UpdateDonacionDto } from './update-donacion.dto';
 
 @Injectable()
 export class DonacionService {
