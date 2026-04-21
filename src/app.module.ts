@@ -16,9 +16,10 @@ import { BloqueoModule } from './bloqueo/infraestructura/bloqueo.module';
 import { ReporteModule } from './reporte/infraestructura/reporte.module';
 import { FotoUsuarioModule } from './foto-usuario/infraestructura/foto-usuario.module';
 import { DonacionModule } from './donacion/infraestructura/donacion.module';
+import { RestriccionUsuarioModule } from './restriccion-usuario/infraestructura/restriccion-usuario/restriccion-usuario.module';
 
 @Module({
-  imports: [UsuarioModule, PrismaModule, SuscripcionModule, InteraccionModule, MatchModule, ChatModule, MensajeModule, MusicaModule, ConfiguracionComunicacionModule, EstadoActividadModule, BloqueoModule, ReporteModule, FotoUsuarioModule, DonacionModule],
+  imports: [UsuarioModule, PrismaModule, SuscripcionModule, InteraccionModule, MatchModule, ChatModule, MensajeModule, MusicaModule, ConfiguracionComunicacionModule, EstadoActividadModule, BloqueoModule, ReporteModule, FotoUsuarioModule, DonacionModule, RestriccionUsuarioModule],
   controllers: [AppController],
   providers: [AppService],
 })
