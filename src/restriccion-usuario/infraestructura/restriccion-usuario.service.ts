@@ -1,7 +1,7 @@
-// src/restriccion-usuario/infraestructura/restriccion-usuario/restriccion-usuario.service.ts:
+// src/restriccion-usuario/infraestructura/restriccion-usuario.service.ts:
 import { Injectable } from '@nestjs/common';
-import { CreateRestriccionUsuarioDto } from './dto/create-restriccion-usuario.dto';
-import { UpdateRestriccionUsuarioDto } from './dto/update-restriccion-usuario.dto';
+import { CreateRestriccionUsuarioDto } from './create-restriccion-usuario.dto';
+import { UpdateRestriccionUsuarioDto } from './update-restriccion-usuario.dto';
 
 @Injectable()
 export class RestriccionUsuarioService {

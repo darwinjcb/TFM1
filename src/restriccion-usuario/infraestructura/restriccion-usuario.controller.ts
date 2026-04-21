@@ -1,8 +1,8 @@
-// src/restriccion-usuario/infraestructura/restriccion-usuario/restriccion-usuario.controller.ts:
+// src/restriccion-usuario/infraestructura/restriccion-usuario.controller.ts:
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { RestriccionUsuarioService } from './restriccion-usuario.service';
-import { CreateRestriccionUsuarioDto } from './dto/create-restriccion-usuario.dto';
-import { UpdateRestriccionUsuarioDto } from './dto/update-restriccion-usuario.dto';
+import { CreateRestriccionUsuarioDto } from './create-restriccion-usuario.dto';
+import { UpdateRestriccionUsuarioDto } from './update-restriccion-usuario.dto';
 
 @Controller('restriccion-usuario')
 export class RestriccionUsuarioController {

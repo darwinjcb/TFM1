@@ -1,4 +1,4 @@
-// src/restriccion-usuario/infraestructura/restriccion-usuario/restriccion-usuario.service.spec.ts:
+// src/restriccion-usuario/infraestructura/restriccion-usuario.service.spec.ts:
 import { Test, TestingModule } from '@nestjs/testing';
 import { RestriccionUsuarioService } from './restriccion-usuario.service';
 

@@ -1,4 +1,4 @@
-// src/restriccion-usuario/infraestructura/restriccion-usuario/restriccion-usuario.controller.spec.ts:
+// src/restriccion-usuario/infraestructura/restriccion-usuario.controller.spec.ts:
 import { Test, TestingModule } from '@nestjs/testing';
 import { RestriccionUsuarioController } from './restriccion-usuario.controller';
 import { RestriccionUsuarioService } from './restriccion-usuario.service';
